@@ -24,7 +24,7 @@ const sleepingBagsName = req.params.sleepingBagsName.toLowerCase();
 infoCollection.find({name: sleepingBagsName}).toArray()
   .then(results => {
     console.log(results)
-    res.json(results[0])
+    res.json(results[0, 1])
 })
 .catch(error => console.log(error))
     })
