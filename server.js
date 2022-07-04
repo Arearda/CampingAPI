@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/:sleepingBagsName', (req, res) => {
 const sleepingBagsName = req.params.sleepingBagsName.toLowerCase();
-infoCollection.findMany({brand: sleepingBagsName}).toArray()
+infoCollection.findMany({bagbrand: sleepingBagsName}).toArray()
   .then(results => {
     console.log(results)
     res.json(results[0])
