@@ -3,16 +3,21 @@ const app = express()
 const cors = require('cors')
 const PORT = 8000
 const MongoClient = require('mongodb').MongoClient
-const connectionString = "mongodb+srv://shaman15:Hollabackboyo@cluster0.ltsuc5f.mongodb.net/?retryWrites=true&w=majority"
+require('dotenv').config()
+
+let db,
+    dbConnectionString = process.env.DB_STRING,
+    dbName = 'CampingGearAPI',
+    collection 
 
 app.use(cors())
 app.use(express.json())
 
-MongoClient.connect(connectionString)
+MongoClient.connect(dbConnectionString)
     .then(client => {
         console.log('Connected to database')
-        const db = client.db('CampGearAPI')
-        const infoCollection = db.collection('SleepingBags')
+        db = client.db(dbName)
+        collection = db.collection('SleepingBags')
 
 
 app.get('/', (req, res) => {
