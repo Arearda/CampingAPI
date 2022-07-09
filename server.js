@@ -10,16 +10,19 @@ let db,
     dbName = 'CampingGearAPI',
     collection 
 
-app.use(cors())
-app.use(express.json())
+
 
 MongoClient.connect(dbConnectionString)
     .then(client => {
         console.log('Connected to database')
         db = client.db(dbName)
         collection = db.collection('SleepingBags')
+    .catch(error => console.log(error))
+    })
 
 
+app.use(cors())
+app.use(express.json())
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
@@ -33,9 +36,7 @@ infoCollection.find({bagbrand: sleepingBagsName}).toArray()
 })
 .catch(error => console.log(error))
     })
-})
 
-.catch(error => console.error(error))
 
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Server ${PORT} is running!`)
