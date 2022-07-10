@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/:sleepingBagsName', (req, res) => {
-const sleepingBagsName = req.params.sleepingBagsName.toLowerCase();
+const sleepingBagsName = req.params.sleepingBagsName;
 db.collection('SleepingBags').find({bagbrand: sleepingBagsName}).toArray()
   .then(results => {
     console.log(results)
