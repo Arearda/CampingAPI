@@ -7,12 +7,14 @@ require('dotenv').config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = 'CampGearAPI'
+    dbName = 'CampGearAPI',
+    collection
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     .then(client => {
         console.log(`Connected to ${dbName} Database`)
         db = client.db(dbName)
+        collection = db.collection('SleepingBags')
     
 
 //use thie below to create new document in the infoCollection
