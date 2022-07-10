@@ -16,7 +16,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     
 
 //use thie below to create new document in the infoCollection
-db.collection('infoCollection').insertOne({name: "new", bagbrand: ""})
+db.collection('infoCollection').insertOne({name: "new", bagbrand: "nemo"})
     })
 
     
