@@ -6,19 +6,21 @@ const MongoClient = require('mongodb').MongoClient
 require('dotenv').config()
 
 let db,
-    dbConnectionString = process.env.DB_STRING,
-    dbName = 'CampingGearAPI',
-    collection 
+    dbConnectionStr = process.env.DB_STRING,
+    dbName = 'CampingGearAPI'
 
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+    .then(client => {
+        console.log(`Connected to ${dbName} Database`)
+        db = client.db(dbName)
+
+//use thie below to create new document in the infoCollection
+// db.collection('infoCollection').insertOne({name: "new", bagbrand: ""})
+    })
+
+    
 app.use(cors())
 app.use(express.json())
-
-MongoClient.connect(dbConnectionString)
-    .then(client => {
-        console.log('Connected to database')
-        db = client.db(dbName)
-        collection = db.collection('SleepingBags')
-
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
@@ -26,16 +28,13 @@ app.get('/', (req, res) => {
 
 app.get('/api/:sleepingBagsName', (req, res) => {
 const sleepingBagsName = req.params.sleepingBagsName.toLowerCase();
-infoCollection.find({bagbrand: sleepingBagsName}).toArray()
+db.collection('infoCollection').find({bagbrand: sleepingBagsName}).toArray()
   .then(results => {
     console.log(results)
-    res.json(results[0])
+    res.json(results)
 })
 .catch(error => console.log(error))
-    })
 })
-
-.catch(error => console.error(error))
 
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Server ${PORT} is running!`)
