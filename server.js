@@ -16,7 +16,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     
 
 //use thie below to create new document in the infoCollection
-// db.collection('infoCollection').insertOne({name: "new", bagbrand: ""})
+db.collection('infoCollection').insertOne({name: "new", bagbrand: ""})
     })
 
     
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/:sleepingBagsName', (req, res) => {
 const sleepingBagsName = req.params.sleepingBagsName.toLowerCase();
-db.collection('SleepingBags').find({bagbrand: sleepingBagsName}).toArray()
+db.collection('infoCollection').find({bagbrand: sleepingBagsName}).toArray()
   .then(results => {
     console.log(results)
     res.json(results)
